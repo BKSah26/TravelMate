@@ -2,7 +2,7 @@
 
 TravellerMate is a web-based travel planning application designed for intelligent travelers. It helps users discover destinations, plan detailed trip itineraries, and manage all their trips in one place.
 
-🌐 **Live Demo:** [bksah26.github.io/TravellerMate](https://bksah26.github.io/TravellerMate/)
+🌐 **Live Demo:** [TravellerMate](https://travellermate.netlify.app/)
 
 ---
 
