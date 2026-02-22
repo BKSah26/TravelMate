@@ -27,8 +27,17 @@ const UI = {
                 <div class="container hero-content">
                     <h2 class="hero-title">Your Next Adventure, <br><span class="text-gradient">Intelligently Planned.</span></h2>
                     <p class="hero-subtitle">Discover hidden gems and receive AI-powered personalized itineraries tailored to your pace and budget.</p>
-                    <div style="margin-top: 3rem;">
-                        <button class="btn btn-primary" onclick="window.location.hash='#planner'">Plan Your Trip Now</button>
+                    
+                    <div class="search-bar-container" style="margin-top: 3rem;">
+                        <span style="font-size: 1.2rem; margin-left: 1rem; color: var(--text-muted); display: flex; align-items: center;">🔍</span>
+                        <div class="search-input">
+                            <input type="text" id="searchInput" placeholder="Where do you want to go?" oninput="app.handleSearch(event)">
+                        </div>
+                        <button class="btn btn-primary" onclick="window.location.hash='#planner'" style="border-radius: 50px;">Plan Trip</button>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Explore trending spots below or create a custom plan.</p>
                     </div>
                 </div>
             </section>
@@ -37,7 +46,7 @@ const UI = {
                     <div class="section-header">
                         <div>
                             <h3 class="section-title">Trending Destinations</h3>
-                            <p>Popular choices by the TravelMate community</p>
+                            <p>Popular choices by the TravellerMate community</p>
                         </div>
                         <div class="filters">
                             <button class="filter-btn active" data-filter="all">All</button>
@@ -303,8 +312,11 @@ const UI = {
                                 onclick="app.viewTripDetail(${trip.id})">View Itinerary</button>`
                 : `<button class="btn btn-secondary" style="flex: 1; padding: 0.5rem; font-size: 0.85rem;" disabled>No Detail</button>`
             }
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem;" onclick="app.downloadItinerary(${trip.id})" title="Download Itinerary">
+                            <span style="font-size: 1rem;">⬇️</span>
+                        </button>
                         <button class="btn btn-secondary" style="padding: 0.5rem 0.85rem; font-size: 0.85rem; color: #ef4444; border-color: #fee2e2;"
-                            onclick="app.deleteTrip(${trip.id})">🗑️</button>
+                            onclick="app.deleteTrip(${trip.id})" title="Delete Trip">🗑️</button>
                     </div>
                 </div>
             </div>

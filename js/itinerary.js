@@ -1,5 +1,5 @@
 /**
- * TravelMate – Itinerary Generation Engine
+ * TravellerMate – Itinerary Generation Engine
  * Generates a smart, day-wise travel plan using a rule-based activity bank.
  * No external API required.
  */
