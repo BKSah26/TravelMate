@@ -1,8 +1,8 @@
-# ✈️ TravelMate — Smart Itinerary Planner
+# ✈️ TravellerMate — Smart Itinerary Planner
 
-TravelMate is a web-based travel planning application designed for intelligent travelers. It helps users discover destinations, plan detailed trip itineraries, and manage all their trips in one place.
+TravellerMate is a web-based travel planning application designed for intelligent travelers. It helps users discover destinations, plan detailed trip itineraries, and manage all their trips in one place.
 
-🌐 **Live Demo:** [bksah26.github.io/TravelMate](https://bksah26.github.io/TravelMate/)
+🌐 **Live Demo:** [bksah26.github.io/TravellerMate](https://bksah26.github.io/TravellerMate/)
 
 ---
 
@@ -37,4 +37,4 @@ Create a personal account with a secure Sign Up flow and log in anytime to acces
 
 ---
 
-> *Designed for Intelligent Travelers. © 2026 TravelMate*
+> *Designed for Intelligent Travelers. © 2026 TravellerMate*
