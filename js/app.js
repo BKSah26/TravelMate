@@ -22,19 +22,10 @@ const app = {
             });
         });
 
-        // Auth placeholder feedback
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
-        if (loginBtn) loginBtn.onclick = () => this.comingSoon('Login');
-        if (signupBtn) signupBtn.onclick = () => this.comingSoon('Sign Up');
-
         // Hash-based routing
         window.addEventListener('hashchange', () => this.handleRoute());
     },
 
-    comingSoon(feature) {
-        this._showToast(`🚀 ${feature} feature is coming soon to TravellerMate!`, 'info');
-    },
 
     initRouter() {
         this.handleRoute();
@@ -311,10 +302,6 @@ const app = {
     filterDestinations(category) {
         const grid = document.getElementById('featuredGrid');
         if (!grid) return;
-
-        // Clear search input if user filters by category
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) searchInput.value = '';
 
         const list = category === 'all'
             ? destinations

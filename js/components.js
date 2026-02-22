@@ -28,14 +28,6 @@ const UI = {
                     <h2 class="hero-title">Your Next Adventure, <br><span class="text-gradient">Intelligently Planned.</span></h2>
                     <p class="hero-subtitle">Discover hidden gems and receive AI-powered personalized itineraries tailored to your pace and budget.</p>
                     
-                    <div class="search-bar-container" style="margin-top: 3rem;">
-                        <span style="font-size: 1.2rem; margin-left: 1rem; color: var(--text-muted); display: flex; align-items: center;">🔍</span>
-                        <div class="search-input">
-                            <input type="text" id="searchInput" placeholder="Where do you want to go?" oninput="app.handleSearch(event)">
-                        </div>
-                        <button class="btn btn-primary" onclick="window.location.hash='#planner'" style="border-radius: 50px;">Plan Trip</button>
-                    </div>
-
                     <div style="margin-top: 2rem;">
                         <p style="font-size: 0.9rem; color: var(--text-muted);">Explore trending spots below or create a custom plan.</p>
                     </div>
