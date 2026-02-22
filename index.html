@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMate | Smart Itinerary Planner</title>
+    <meta name="description"
+        content="Discover destinations, generate smart day-wise itineraries, and plan your travel budget with TravelMate.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.95em%22 x=%2250%%22 text-anchor=%22middle%22 font-size=%2275%22>🌍</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="container">
+            <div class="logo">
+                <a href="#" class="logo-link">
+                    <span class="icon">✈️</span>
+                    <h1>TravelMate</h1>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#discover" class="active">Discover</a></li>
+                <li><a href="#planner">Plan a Trip</a></li>
+                <li><a href="#my-trips">My Trips</a></li>
+            </ul>
+            <div class="user-actions">
+                <button class="btn btn-secondary" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main id="app">
+        <!-- Content will be injected by JS based on route -->
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 TravelMate. Designed for Intelligent Travelers.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/mockData.js"></script>
+    <script src="js/itinerary.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
