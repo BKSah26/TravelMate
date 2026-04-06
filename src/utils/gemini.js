@@ -1,11 +1,12 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
-let genAI = null;
-if (API_KEY && API_KEY !== 'your_google_gemini_api_key_here') {
-    genAI = new GoogleGenerativeAI(API_KEY);
-}
+const GEMINI_MODEL = import.meta.env.VITE_GEMINI_MODEL || 'gemini-1.5-flash';
+const INVALID_API_KEY_PATTERNS = [
+    /your_google_gemini_api_key_here/i,
+    /YOUR_REAL_GOOGLE_GEMINI_API_KEY/i,
+    /your.*gemini.*api.*key/i
+];
+const USE_GEMINI = API_KEY && !INVALID_API_KEY_PATTERNS.some((pattern) => pattern.test(API_KEY.trim()));
+const GEMINI_URL = '/api/gemini';
 
 const RESPONSE_SCHEMA = `
 Respond ONLY with a valid JSON object matching this exact structure:
@@ -46,32 +47,65 @@ function extractJSON(text) {
     return text;
 }
 
-export async function generateItinerary(destination, days, budget) {
-    if (!genAI) {
-        console.warn("Using mock data as Gemini API key is missing.");
-        await new Promise(r => setTimeout(r, 1500)); // Simulate network delay
-        return getMockData(destination, days, budget);
+function parseGeminiResponseBody(body) {
+    const content = body?.candidates?.[0]?.output || body?.candidates?.[0]?.content?.map(item => item.text).join('');
+    if (!content) {
+        throw new Error('Unexpected Gemini response format.');
     }
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    return content;
+}
+
+async function callGemini(prompt) {
+    if (!USE_GEMINI) {
+        throw new Error('Google Gemini API key is missing or invalid. Set VITE_GEMINI_API_KEY in .env');
+    }
+
+    let response;
+    try {
+        response = await fetch(GEMINI_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': API_KEY,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: { text: prompt },
+                temperature: 0.7,
+                maxOutputTokens: 1000
+            })
+        });
+    } catch (err) {
+        throw new Error(`Gemini fetch failed. Check your network, API key, or browser CORS: ${err.message}`);
+    }
+
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(`Gemini API error: ${response.status} ${response.statusText} - ${body}`);
+    }
+
+    const data = await response.json();
+    return parseGeminiResponseBody(data);
+}
+
+export async function generateItinerary(destination, days, budget) {
+    if (!USE_GEMINI) {
+        throw new Error('Google Gemini API key is missing or invalid. Set VITE_GEMINI_API_KEY in .env and restart the dev server.');
+    }
+
     const prompt = `Plan a ${days}-day trip to ${destination} with a ${budget} budget. ${RESPONSE_SCHEMA}`;
-    
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return JSON.parse(extractJSON(response.text()));
+    const text = await callGemini(prompt);
+    return JSON.parse(extractJSON(text));
 }
 
 export async function suggestDestination(days, budget, people, travelType, location) {
-    if (!genAI) {
-        console.warn("Using mock data as Gemini API key is missing.");
-        await new Promise(r => setTimeout(r, 1500));
-        return getMockData("Switzerland (Mock Suggestion)", days, budget);
+    if (!USE_GEMINI) {
+        throw new Error('Google Gemini API key is missing or invalid. Set VITE_GEMINI_API_KEY in .env and restart the dev server.');
     }
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
     const prompt = `Suggest a single travel destination ${location === 'India' ? 'within India' : 'abroad (outside India)'} for ${people} people. The trip duration is ${days} days with a ${budget} budget. The preferred type of travel is ${travelType}. Provide a detailed itinerary for this suggested destination. ${RESPONSE_SCHEMA}`;
-    
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return JSON.parse(extractJSON(response.text()));
+    const text = await callGemini(prompt);
+    return JSON.parse(extractJSON(text));
 }
 
 function getMockData(destination, days, budget) {
@@ -81,23 +115,23 @@ function getMockData(destination, days, budget) {
             dayNumber: i,
             theme: `Exploring the best of ${destination}`,
             activities: [
-                { timeWindow: "Morning", name: "Sightseeing", description: "Visit top local attractions.", emoji: "📸" },
-                { timeWindow: "Afternoon", name: "Local Cuisine", description: "Enjoy a traditional lunch.", emoji: "🍽️" },
-                { timeWindow: "Evening", name: "Relaxation", description: "Leisure time and dinner.", emoji: "🌅" }
+                { timeWindow: 'Morning', name: 'Sightseeing', description: 'Visit top local attractions.', emoji: '📸' },
+                { timeWindow: 'Afternoon', name: 'Local Cuisine', description: 'Enjoy a traditional lunch.', emoji: '🍽️' },
+                { timeWindow: 'Evening', name: 'Relaxation', description: 'Leisure time and dinner.', emoji: '🌅' }
             ]
         });
     }
     return {
         title: `${days} Days in ${destination}`,
         overview: `A ${budget} friendly trip exploring beautiful landmarks and culture. (This is Mock Data because no API key was provided)`,
-        bannerUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080",
+        bannerUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
         budgetBreakdown: [
-            { category: "Flights/Transport", estimatedCost: "$500", percentage: 40 },
-            { category: "Accommodation", estimatedCost: "$350", percentage: 30 },
-            { category: "Food & Dining", estimatedCost: "$200", percentage: 15 },
-            { category: "Activities", estimatedCost: "$150", percentage: 15 }
+            { category: 'Flights/Transport', estimatedCost: '$500', percentage: 40 },
+            { category: 'Accommodation', estimatedCost: '$350', percentage: 30 },
+            { category: 'Food & Dining', estimatedCost: '$200', percentage: 15 },
+            { category: 'Activities', estimatedCost: '$150', percentage: 15 }
         ],
-        totalEstimatedCost: "$1200",
+        totalEstimatedCost: '$1200',
         days: mockDays
     };
 }
