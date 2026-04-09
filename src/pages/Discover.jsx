@@ -14,7 +14,7 @@ export default function Discover() {
             <section className="hero" style={{marginBottom: '3rem'}}>
                 <div className="container hero-content">
                     <h2 className="hero-title">Your Next Adventure, <br/><span className="text-gradient">Intelligently Planned.</span></h2>
-                    <p className="hero-subtitle">Discover hidden gems and receive AI-powered personalized itineraries tailored to your pace and budget.</p>
+                    <p className="hero-subtitle">Discover hidden gems and receive personalized itineraries tailored to your pace and budget.</p>
                 </div>
             </section>
             <div className="container">

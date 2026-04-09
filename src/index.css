@@ -1,5 +1,5 @@
 :root {
-    /* Color Palette */
+    
     --primary: #2563eb;
     --primary-light: #60a5fa;
     --primary-dark: #1e40af;
@@ -12,13 +12,13 @@
     --glass: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.3);
 
-    /* Transitions & Shadows */
+    
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 
-    /* Layout */
+    
     --max-width: 1200px;
 }
 
@@ -42,7 +42,7 @@ body {
     padding: 0 2rem;
 }
 
-/* Typography */
+
 h1,
 h2,
 h3,
@@ -58,7 +58,7 @@ h4 {
     -webkit-text-fill-color: transparent;
 }
 
-/* Buttons */
+
 .btn {
     padding: 0.75rem 1.5rem;
     border-radius: 9999px;
@@ -91,7 +91,7 @@ h4 {
     background-color: #f1f5f9;
 }
 
-/* Header */
+
 .main-header {
     background: var(--glass);
     backdrop-filter: blur(12px);
@@ -157,7 +157,7 @@ h4 {
 }
 
 
-/* Hero Section */
+
 .hero {
     padding: 8rem 0 6rem;
     position: relative;
@@ -216,14 +216,14 @@ h4 {
     padding: 0.5rem;
 }
 
-/* Glassmorphism Classes */
+
 .glass {
     background: var(--glass);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
 }
 
-/* Section Styling */
+
 .section {
     padding: 6rem 0;
 }
@@ -240,7 +240,7 @@ h4 {
     margin-bottom: 0.5rem;
 }
 
-/* Filters */
+
 .filters {
     display: flex;
     gap: 0.75rem;
@@ -262,7 +262,7 @@ h4 {
     border-color: var(--primary);
 }
 
-/* Grid & Cards */
+
 .destination-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -321,7 +321,7 @@ h4 {
     color: var(--text-main);
 }
 
-/* Navigation Active State */
+
 .nav-links a.active {
     color: var(--primary);
     position: relative;
@@ -338,7 +338,7 @@ h4 {
     border-radius: 2px;
 }
 
-/* Chip Styles for Form */
+
 .chip-label {
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
@@ -362,12 +362,12 @@ h4 {
     display: none;
 }
 
-/* Trip Card Specifics */
+
 .trip-card .card-img {
     filter: brightness(0.9);
 }
 
-/* ── Form Labels ─────────────────────────────────────── */
+
 .form-label {
     display: block;
     margin-bottom: 0.75rem;
@@ -375,7 +375,7 @@ h4 {
     color: var(--text-main);
 }
 
-/* ── Itinerary Result Wrapper ────────────────────────── */
+
 .itinerary-result {
     margin-top: 3rem;
     animation: fadeInUp 0.5s ease forwards;
@@ -393,7 +393,7 @@ h4 {
     }
 }
 
-/* ── Banner ──────────────────────────────────────────── */
+
 .itinerary-banner {
     position: relative;
     border-radius: 24px;
@@ -448,7 +448,7 @@ h4 {
     margin-top: 0.4rem;
 }
 
-/* ── Controls Bar ────────────────────────────────────── */
+
 .itinerary-controls {
     display: flex;
     gap: 1rem;
@@ -462,7 +462,7 @@ h4 {
     font-size: 0.875rem;
 }
 
-/* ── Day Accordion ───────────────────────────────────── */
+
 .day-accordion {
     display: flex;
     flex-direction: column;
@@ -538,7 +538,7 @@ h4 {
     padding-bottom: 1.5rem;
 }
 
-/* ── Timeline Slots ──────────────────────────────────── */
+
 .day-timeline {
     display: flex;
     flex-direction: column;
@@ -617,7 +617,7 @@ h4 {
     margin: 0;
 }
 
-/* ── Activity Tags ────────────────────────────────────── */
+
 .activity-tag {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -630,7 +630,7 @@ h4 {
     color: white;
 }
 
-/* ── Budget Breakdown ────────────────────────────────── */
+
 .budget-breakdown {
     border-radius: 20px;
     padding: 2rem;
@@ -722,7 +722,7 @@ h4 {
     font-style: italic;
 }
 
-/* ── Itinerary CTA ───────────────────────────────────── */
+
 .itinerary-cta {
     display: flex;
     gap: 1rem;
@@ -731,7 +731,7 @@ h4 {
     padding: 1rem 0 2rem;
 }
 
-/* ── Empty State ─────────────────────────────────────── */
+
 .empty-state {
     grid-column: 1 / -1;
     text-align: center;
@@ -750,7 +750,7 @@ h4 {
     margin-bottom: 0.75rem;
 }
 
-/* ── Modal ───────────────────────────────────────────── */
+
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -817,7 +817,7 @@ h4 {
     background: #e2e8f0;
 }
 
-/* ── Toast Notification ──────────────────────────────── */
+
 .tm-toast {
     position: fixed;
     bottom: 2rem;
@@ -849,7 +849,7 @@ h4 {
     background: var(--primary);
 }
 
-/* ── Mobile Menu Toggle ──────────────────────────────── */
+
 .mobile-menu-btn {
     display: none;
     background: transparent;
@@ -860,7 +860,7 @@ h4 {
     color: var(--secondary);
 }
 
-/* ── Mobile Responsiveness ───────────────────────────── */
+
 @media (max-width: 768px) {
     .container {
         padding: 0 1.25rem;
@@ -883,7 +883,7 @@ h4 {
         padding: 3.5rem 0;
     }
 
-    /* Header & Mobile Menu */
+    
     .mobile-menu-btn {
         display: block;
     }
@@ -911,7 +911,7 @@ h4 {
         text-align: center;
     }
 
-    /* Tables & Grids */
+    
     .budget-header, .budget-row, .budget-grand {
         grid-template-columns: 1fr;
         gap: 0.25rem;

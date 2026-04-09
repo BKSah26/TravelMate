@@ -1,28 +1,58 @@
 import { useState } from 'react';
-import { generateItinerary, suggestDestination } from '../utils/gemini';
 
 export default function Planner() {
-    const [mode, setMode] = useState('plan'); // 'plan' or 'suggest'
+    const [mode, setMode] = useState('plan');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [itinerary, setItinerary] = useState(null);
     const [expandedDays, setExpandedDays] = useState({});
 
-    // Plan state
+    const generateItinerary = (destination, days, budget) => {
+        const mockDays = [];
+        for (let i = 1; i <= days; i++) {
+            mockDays.push({
+                dayNumber: i,
+                theme: `Exploring ${destination}`,
+                activities: [
+                    { timeWindow: 'Morning', name: 'Sightseeing', description: 'Visit local attractions.', emoji: '📸' },
+                    { timeWindow: 'Afternoon', name: 'Lunch', description: 'Try local cuisine.', emoji: '🍽️' },
+                    { timeWindow: 'Evening', name: 'Relax', description: 'Free time.', emoji: '🌅' }
+                ]
+            });
+        }
+        return {
+            title: `${days} Days in ${destination}`,
+            overview: `A ${budget} trip to ${destination}.`,
+            bannerUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+            budgetBreakdown: [
+                { category: 'Flights/Transport', estimatedCost: '$500', percentage: 40 },
+                { category: 'Accommodation', estimatedCost: '$350', percentage: 30 },
+                { category: 'Food & Dining', estimatedCost: '$200', percentage: 15 },
+                { category: 'Activities', estimatedCost: '$150', percentage: 15 }
+            ],
+            totalEstimatedCost: '$1200',
+            days: mockDays
+        };
+    };
+
+    const suggestDestination = (days, budget, people, travelType, location) => {
+        const destinations = ['Goa', 'Manali', 'Jaipur', 'Kerala', 'Rajasthan'];
+        const dest = destinations[Math.floor(Math.random() * destinations.length)];
+        return generateItinerary(dest, days, budget);
+    };
+
     const [planData, setPlanData] = useState({ destination: '', days: 3, budget: 'Moderate' });
-    
-    // Suggest state
     const [suggestData, setSuggestData] = useState({ days: 5, budget: 'Moderate', people: 2, travelType: 'Adventure', location: 'India' });
 
-    const handlePlanSubmit = async (e) => {
+    const handlePlanSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
         setItinerary(null);
         try {
-            const data = await generateItinerary(planData.destination, planData.days, planData.budget);
+            const data = generateItinerary(planData.destination, planData.days, planData.budget);
             setItinerary(data);
-            setExpandedDays({ 1: true }); // auto expand day 1
+            setExpandedDays({ 1: true });
         } catch (err) {
             setError(err.message);
         } finally {
@@ -30,15 +60,15 @@ export default function Planner() {
         }
     };
 
-    const handleSuggestSubmit = async (e) => {
+    const handleSuggestSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
         setItinerary(null);
         try {
-            const data = await suggestDestination(suggestData.days, suggestData.budget, suggestData.people, suggestData.travelType, suggestData.location);
+            const data = suggestDestination(suggestData.days, suggestData.budget, suggestData.people, suggestData.travelType, suggestData.location);
             setItinerary(data);
-            setExpandedDays({ 1: true }); // auto expand day 1
+            setExpandedDays({ 1: true });
         } catch (err) {
             setError(err.message);
         } finally {
@@ -47,18 +77,17 @@ export default function Planner() {
     };
 
     const toggleDay = (dayNum) => {
-        setExpandedDays(prev => ({...prev, [dayNum]: !prev[dayNum]}));
+        setExpandedDays(prev => ({ ...prev, [dayNum]: !prev[dayNum] }));
     };
 
     return (
         <section className="section" id="planner">
             <div className="container">
                 <div className="section-header" style={{ flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                    <h2 className="section-title">AI Trip Planner</h2>
-                    <p className="text-muted">Let artificial intelligence build your perfect itinerary.</p>
+                    <h2 className="section-title">Trip Planner</h2>
+                    <p className="text-muted">Build a travel itinerary with fast, sample-based planning.</p>
                 </div>
 
-                {/* Mode Selector */}
                 {!itinerary && !isLoading && !error && (
                     <div className="filters" style={{ justifyContent: 'center', marginBottom: '3rem' }}>
                         <button className={mode === 'plan' ? 'filter-btn active' : 'filter-btn'} onClick={() => setMode('plan')}>Plan a Trip</button>
@@ -66,7 +95,6 @@ export default function Planner() {
                     </div>
                 )}
 
-                {/* Forms */}
                 {!itinerary && !isLoading && !error && (
                     <div className="glass" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem', borderRadius: '24px' }}>
                         {mode === 'plan' ? (
@@ -142,18 +170,16 @@ export default function Planner() {
                     </div>
                 )}
 
-                {/* State: Loading */}
                 {isLoading && (
                     <div style={{ textAlign: 'center', padding: '4rem 0' }}>
-                        <h3 className="section-title">Generating your perfect trip...</h3>
-                        <p className="text-muted">Our AI is analyzing thousands of possibilities.</p>
+                        <h3 className="section-title">Generating your trip...</h3>
+                        <p className="text-muted">Please wait while your itinerary is prepared.</p>
                         <div style={{ marginTop: '2rem', fontSize: '3rem' }}>
                             ✨
                         </div>
                     </div>
                 )}
 
-                {/* State: Error */}
                 {error && (
                     <div className="glass" style={{ padding: '2rem', textAlign: 'center', color: '#dc2626', borderColor: '#fca5a5', maxWidth: '600px', margin: '0 auto', borderRadius: '24px' }}>
                         <h3>Oops! Something went wrong.</h3>
@@ -162,14 +188,13 @@ export default function Planner() {
                     </div>
                 )}
 
-                {/* Render Result */}
                 {itinerary && (
                     <div className="itinerary-result">
                         <div className="itinerary-banner">
                             <img src={itinerary.bannerUrl || 'https://images.unsplash.com/photo-1488085061387-422e29b40080'} alt="Destination" className="itinerary-banner-img" />
                             <div className="itinerary-banner-overlay">
                                 <div className="itinerary-banner-content">
-                                    <span className="itinerary-badge">AI Generated Plan</span>
+                                    <span className="itinerary-badge">Suggested Plan</span>
                                     <h2 className="itinerary-title">{itinerary.title}</h2>
                                     <p className="itinerary-subtitle">{itinerary.overview}</p>
                                 </div>
