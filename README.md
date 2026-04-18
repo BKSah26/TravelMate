@@ -2,9 +2,6 @@
 
 Welcome to **TravellerMate**! Your ultimate travel companion for discovering popular destinations around the globe. 🌍✨  
 
-## Badges  
-![GitHub followers](https://img.shields.io/github/followers/BKSah26.svg?style=social) ![Stars](https://img.shields.io/github/stars/BKSah26/TravellerMate?style=social) ![Issues](https://img.shields.io/github/issues/BKSah26/TravellerMate)  
-
 ## Overview  
 | Feature | Description |  
 | ------- | ----------- |  
